@@ -10,17 +10,12 @@ import {
   View,
   ImageBackground,
 } from 'react-native';
-
 import { MonoText } from '../components/StyledText';
+import MyMap from "../components/Map"
 
 export default function HomeScreen() {
-  function start () {
-    props.navigation.navigate('Main');
-  }
   return (
-      <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-        <Text>hej</Text>
-      </View>
+      <MyMap/>
   );
 }
 
