@@ -4,8 +4,10 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import SearchScreen from '../screens/SearchScreen';
+import DiplomasScreen from '../screens/DiplomasScreen';
+import CameraScreen from '../screens/CameraScreen';
+import Colors from '../constants/Colors';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -20,7 +22,7 @@ const HomeStack = createStackNavigator(
 );
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  tabBarLabel: 'Hjem',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -31,48 +33,65 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const LinksStack = createStackNavigator(
+const SearchStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Search: SearchScreen,
   },
   config
 );
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+SearchStack.navigationOptions = {
+  tabBarLabel: 'Søg',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+    <TabBarIcon focused={focused} name={"md-search"} />
   ),
 };
 
-LinksStack.path = '';
+SearchStack.path = '';
 
-const SettingsStack = createStackNavigator(
+const DiplomasStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Diplomas: DiplomasScreen,
   },
   config
 );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+DiplomasStack.navigationOptions = {
+  tabBarLabel: 'Diplomer',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+    <TabBarIcon focused={focused} name={"md-journal"} />
   ),
 };
 
-SettingsStack.path = '';
+DiplomasStack.path = '';
+
+const CameraStack = createStackNavigator(
+  {
+    Camera: CameraScreen,
+  },
+  config
+);
+
+CameraStack.navigationOptions = {
+  tabBarLabel: 'Camera',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={"md-camera"} />
+  ),
+};
+
+CameraStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack,
+  SearchStack,
+  DiplomasStack,
+  CameraStack,
 }, {
   tabBarOptions: {
     // activeTintColor: 'tomato',
     // inactiveTintColor: 'gray',
     style: {
-      // backgroundColor: '#FF684D',
+      backgroundColor: Colors.tabBarBackground,
     },
   },
 });
