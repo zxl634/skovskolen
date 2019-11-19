@@ -13,9 +13,9 @@ import {
 
 import { MonoText } from '../components/StyledText';
 
-export default function HomeScreen() {
+export default function HomeScreen(props) {
   function start () {
-    console.log("start")
+    props.navigation.navigate('Main');
   }
   return (
     <ImageBackground source={require("../assets/backgrounds/startside.png")} style={{width: '100%', height: '100%'}}>

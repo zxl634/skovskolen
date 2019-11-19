@@ -24,11 +24,7 @@ HomeStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
+      name={"md-home"}
     />
   ),
 };
@@ -71,6 +67,14 @@ const tabNavigator = createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
+}, {
+  tabBarOptions: {
+    // activeTintColor: 'tomato',
+    // inactiveTintColor: 'gray',
+    style: {
+      // backgroundColor: '#FF684D',
+    },
+  },
 });
 
 tabNavigator.path = '';

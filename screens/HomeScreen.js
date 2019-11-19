@@ -18,25 +18,14 @@ export default function HomeScreen() {
     props.navigation.navigate('Main');
   }
   return (
-    <ImageBackground source={require("../assets/backgrounds/startside.png")} style={{width: '100%', height: '100%'}}>
       <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-        <View style={{flex: 0.85}}></View>
-        <View style={{flex: 0.11, paddingLeft: 2}}>
-          <TouchableOpacity onPress={start}>
-            <Image
-              style={styles.stretch}
-              source={require('../assets/buttons/startButton.png')}
-            />
-        </TouchableOpacity>
-        </View>
-        <View style={{flex: 0.1}}></View>
+        <Text>hej</Text>
       </View>
-    </ImageBackground>
   );
 }
 
 HomeScreen.navigationOptions = {
-  tabBarVisible: false,
+  // tabBarVisible: false,
   header: null,
 };
 
