@@ -1,14 +1,13 @@
 import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
+import { ImageBackground } from "react-native"
 
-export default function SettingsScreen() {
-  /**
-   * Go ahead and delete ExpoConfigView and replace it with your content;
-   * we just wanted to give you a quick view of your config.
-   */
-  return <ExpoConfigView />;
+export default function DiplomasScreen() {
+  return (
+    <ImageBackground source={require("../assets/backgrounds/diplom.png")} style={{width: '100%', height: '100%'}}>
+    </ImageBackground>
+  )
 }
 
-SettingsScreen.navigationOptions = {
-  title: 'app.json',
-};
+DiplomasScreen.navigationOptions = {
+  header: null,
+}
