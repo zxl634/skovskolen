@@ -33,24 +33,31 @@ export default class BasisLocation extends Component {
   };
 
   render() {
+    const { errorMessage, location } = this.state
     let text = 'Waiting..';
-    if (this.state.errorMessage) {
-      text = this.state.errorMessage;
-    } else if (this.state.location) {
-      text = JSON.stringify(this.state.location);
+    if (errorMessage) {
+      console.log(errorMessage)
+    }
+    if (location) {
+      return <>{this.props.render(this.state.location)}</>
+    } else {
+      return null
     }
 
+
+    /*
     return (
       <View style={styles.container}>
         <Text style={styles.paragraph}>{text}</Text>
       </View>
     );
+    */
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0.4,
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,

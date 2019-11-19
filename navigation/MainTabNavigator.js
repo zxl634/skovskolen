@@ -92,6 +92,7 @@ const tabNavigator = createBottomTabNavigator({
     // inactiveTintColor: 'gray',
     style: {
       backgroundColor: Colors.tabBarBackground,
+      // height: 50,
     },
   },
 });
