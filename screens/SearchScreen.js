@@ -3,14 +3,15 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import MapScreen from "./MapScreen"
 
-export default function LinksScreen() {
+export default function SearchScreen() {
   return (
     <MapScreen/>
   );
 }
 
-LinksScreen.navigationOptions = {
-  title: 'Links',
+SearchScreen.navigationOptions = {
+  // tabBarVisible: false,
+  header: null,
 };
 
 const styles = StyleSheet.create({

@@ -5,12 +5,11 @@ import GeoFenceComponent from '../components/GeoFenceComponent';
 export default class MapScreen extends Component {
     constructor(props) {
       super(props);
-      this.state = 
+      this.state =
       {
         Zone : false,
         ZoneText : 'non-sense'
       };
-      
     }
 
     
@@ -47,5 +46,5 @@ export default class MapScreen extends Component {
     paragraph: {
       margin:10,
       fontSize: 18,
-      textAlign: 'center'  
+      textAlign: 'center'
     } })

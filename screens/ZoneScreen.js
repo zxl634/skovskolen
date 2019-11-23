@@ -24,5 +24,5 @@ const styles = StyleSheet.create({
     paragraph: {
       margin:10,
       fontSize: 18,
-      textAlign: 'center'  
+      textAlign: 'center'
     } })
