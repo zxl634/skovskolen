@@ -15,6 +15,7 @@ export default function MyMap () {
   return (
     <View style={styles.container}>
       <BasisLocation render={({coords}) => {
+        console.log("coords: ", coords)
         const myMarker = {
           "key": 0,
           "title": "My current position",
@@ -25,28 +26,8 @@ export default function MyMap () {
           "markerType": "custom"
         }
         markers.push(myMarker)
-        return (
-          <MapView style={styles.mapStyle}>
-            {markers.map(m => {
-              if (m.markerType === "default") {
-              return (
-                <Marker
-                  coordinate={m.latlng}
-                  title={m.title}
-                  key={m.key}
-                  // description={marker.description}
-                />
-              )
-              } else {
-                return (
-                  <Marker coordinate={m.latlng} key={m.key}>
-                    <MyCustomMarkerView/>
-                  </Marker>
-                )
-              }
-            })}
-          </MapView>
-        )}}
+        return <MyMapView markers={markers}/>
+      }}
       />
     </View>
   )
@@ -61,6 +42,32 @@ function MyCustomMarkerView (props) {
         />
       </View>
 
+  )
+}
+
+function MyMapView (props) {
+  const { markers } = props
+  return (
+    <MapView style={styles.mapStyle}>
+      {markers.map(m => {
+        if (m.markerType === "default") {
+        return (
+          <Marker
+            coordinate={m.latlng}
+            title={m.title}
+            key={m.key}
+            // description={marker.description}
+          />
+        )
+        } else {
+          return (
+            <Marker coordinate={m.latlng} key={m.key}>
+              <MyCustomMarkerView/>
+            </Marker>
+          )
+        }
+      })}
+    </MapView>
   )
 }
 

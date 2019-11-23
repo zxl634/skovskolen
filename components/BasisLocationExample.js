@@ -3,6 +3,7 @@ import { Platform, Text, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
+import { taskname } from "./TaskManager"
 
 export default class BasisLocation extends Component {
   state = {
@@ -30,6 +31,21 @@ export default class BasisLocation extends Component {
 
     let location = await Location.getCurrentPositionAsync({});
     this.setState({ location });
+    const regions = [
+      {
+        // "identifier": "myid",
+        "latitude": 55.6844,
+        "longitude": 12.5357,
+        "radius": 10000,
+        "state": 1,
+      }
+    ]
+    /*
+    Location.startGeofencingAsync(taskname, regions).then(result => {
+      console.log("result: ", result)
+
+    }).catch(e => console.log(e))
+    */
   };
 
   render() {
