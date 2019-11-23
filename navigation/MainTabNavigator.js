@@ -42,14 +42,13 @@ const SearchStack = createStackNavigator(
 );
 
 SearchStack.navigationOptions = {
-  tabBarLabel: 'Søg',
+  tabBarLabel: 'Kort',
   tabBarIcon: ({ focused }) => (
-    <View>
-      <Image
-        style={{flex: 1, width: 20, resizeMode: "contain"}}
-        source={require('../assets/icons/SearchIcon.png')}
-      />
-    </View>
+    <MyIcon
+      focused={focused}
+      name={"map"}
+      type={"font-awesome"}
+    />
   ),
 };
 
@@ -84,7 +83,7 @@ const CameraStack = createStackNavigator(
 );
 
 CameraStack.navigationOptions = {
-  tabBarLabel: 'Camera',
+  tabBarLabel: 'Kamera',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={"md-camera"} />
   ),
