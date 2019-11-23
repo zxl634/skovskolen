@@ -12,10 +12,11 @@ import {
 } from 'react-native';
 import { MonoText } from '../components/StyledText';
 import MyMap from "../components/Map"
+import InfoScreen from "./InfoScreen"
 
 export default function HomeScreen() {
   return (
-      <MyMap/>
+    <InfoScreen/>
   );
 }
 
