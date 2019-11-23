@@ -7,7 +7,6 @@
     "platforms": [
       "ios",
       "android",
-      "web"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +23,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "dk.diri.skovskolen"
+    },
+    "android": {
+      "package": "dk.diri.skovskolen"
     }
   }
 }
