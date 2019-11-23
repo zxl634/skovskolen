@@ -2,8 +2,13 @@ import React from 'react';
 import { createStackNavigator, createAppContainer, createSwitchNavigator } from 'react-navigation';
 import StartScreen from '../screens/StartScreen';
 import MainTabNavigator from './MainTabNavigator';
+import InfoScreen from "../screens/InfoScreen"
 
-const StartStack = createStackNavigator({ Start: StartScreen });
+const StartStack = createStackNavigator(
+  { StartHere: StartScreen, 
+   Info: InfoScreen },
+);
+
 
 export default createAppContainer(
   createSwitchNavigator({

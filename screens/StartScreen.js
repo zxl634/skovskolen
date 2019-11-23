@@ -1,7 +1,11 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
+import * as firebase from 'firebase/app';
+import { NavigationActions } from 'react-navigation';
+import 'firebase/auth';
 import {
   Image,
+  ActivityIndicator,
   Platform,
   ScrollView,
   StyleSheet,
@@ -13,17 +17,44 @@ import {
 import MyButton from "../components/MyButton"
 
 export default function HomeScreen(props) {
-  return (
-    <ImageBackground source={require("../assets/backgrounds/startScreen.png")} style={{width: '100%', height: '100%'}}>
-        <View style={styles.startContainer}>
-          <Text style={styles.paragraph}> Velkommen til </Text>
-          <MyButton
-            onPressButton={() => props.navigation.navigate('Main')}
-            buttonText={"Start turen"}
-          />
-        </View>
-    </ImageBackground>
-  );
+  const [ fetchingUserStatus, setFetchingUserStatus ] = React.useState(true)
+  React.useEffect(() => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        props.navigation.navigate("Main")
+      } else {
+        setFetchingUserStatus(false)
+      }
+    });
+  })
+  function onPressStart () {
+    setFetchingUserStatus(true)
+    firebase.auth().signInAnonymously().then(() => {
+      props.navigation.navigate("Main")
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      alert(errorMessage)
+    });
+  }
+
+  if (fetchingUserStatus) {
+    return <ActivityIndicator/>
+  } else {
+    return (
+      <ImageBackground source={require("../assets/backgrounds/startScreen.png")} style={{width: '100%', height: '100%'}}>
+          <View style={styles.startContainer}>
+            <Text style={styles.paragraph}> Velkommen til </Text>
+            <MyButton
+              onPressButton={onPressStart}
+              buttonText={"Start turen"}
+            />
+          </View>
+      </ImageBackground>
+    );
+  }
+  
 }
 
 HomeScreen.navigationOptions = {
