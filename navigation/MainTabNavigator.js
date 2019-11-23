@@ -1,8 +1,8 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { View, Image, Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
-import TabBarIcon from '../components/TabBarIcon';
+import TabBarIcon, { MyIcon } from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
 import DiplomasScreen from '../screens/DiplomasScreen';
@@ -24,9 +24,10 @@ const HomeStack = createStackNavigator(
 HomeStack.navigationOptions = {
   tabBarLabel: 'Hjem',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
+    <MyIcon
       focused={focused}
-      name={"md-home"}
+      name={"home"}
+      type={"entypo"}
     />
   ),
 };
@@ -43,7 +44,12 @@ const SearchStack = createStackNavigator(
 SearchStack.navigationOptions = {
   tabBarLabel: 'Søg',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={"md-search"} />
+    <View>
+      <Image
+        style={{flex: 1, width: 20, resizeMode: "contain"}}
+        source={require('../assets/icons/SearchIcon.png')}
+      />
+    </View>
   ),
 };
 
@@ -59,7 +65,12 @@ const DiplomasStack = createStackNavigator(
 DiplomasStack.navigationOptions = {
   tabBarLabel: 'Diplomer',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={"md-journal"} />
+    <View>
+      <Image
+        style={{flex: 1, width: 20, resizeMode: "contain"}}
+        source={require('../assets/icons/DiplomIcon.png')}
+      />
+    </View>
   ),
 };
 
