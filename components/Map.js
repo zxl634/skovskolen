@@ -35,7 +35,7 @@ export default function MyMap () {
                   title={m.title}
                   key={m.key}
                   // description={marker.description}
-                /> 
+                />
               )
               } else {
                 return (

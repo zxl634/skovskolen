@@ -1,7 +1,8 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
-import MapScreen from "./MapScreen"
+// import MapScreen from "./MapScreen"
+import MapScreen from "../components/Map"
 
 export default function SearchScreen() {
   return (

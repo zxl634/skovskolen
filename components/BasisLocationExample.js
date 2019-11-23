@@ -39,7 +39,7 @@ export default class BasisLocation extends Component {
       console.log(errorMessage)
     }
     if (location) {
-      alert(JSON.stringify(location))
+      // alert(JSON.stringify(location))
       return <>{this.props.render(this.state.location)}</>
     } else {
       return null
