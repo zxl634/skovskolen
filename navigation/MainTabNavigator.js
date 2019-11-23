@@ -99,11 +99,14 @@ const tabNavigator = createBottomTabNavigator({
   CameraStack,
 }, {
   tabBarOptions: {
-    // activeTintColor: 'tomato',
-    // inactiveTintColor: 'gray',
+    activeTintColor: Colors.tintColor,
+    inactiveTintColor: Colors.tabIconDefault,
+    labelStyle: {
+      fontSize: 15,
+    },
     style: {
       backgroundColor: Colors.tabBarBackground,
-      // height: 50,
+      height: 60,
     },
   },
 });
