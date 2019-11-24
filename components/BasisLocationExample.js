@@ -24,6 +24,7 @@ export default class BasisLocation extends Component {
   _getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
+      console.log("status: ", status)
       this.setState({
         errorMessage: 'Permission to access location was denied',
       });
@@ -31,6 +32,7 @@ export default class BasisLocation extends Component {
 
     let location = await Location.getCurrentPositionAsync({});
     this.setState({ location });
+    /*
     const regions = [
       {
         // "identifier": "myid",
@@ -40,7 +42,6 @@ export default class BasisLocation extends Component {
         "state": 1,
       }
     ]
-    /*
     Location.startGeofencingAsync(taskname, regions).then(result => {
       console.log("result: ", result)
 

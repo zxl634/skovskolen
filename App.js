@@ -6,7 +6,7 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import init from "./config/firebase"
 import AppNavigator from './navigation/AppNavigator';
-import TaskManager from "./components/TaskManager"
+// import TaskManager from "./components/TaskManager"
 
 export default function App(props) {
   return (

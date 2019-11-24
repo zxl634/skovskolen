@@ -87,7 +87,6 @@ export default class GeoFenceComponent extends Component {
   };
 
   getImgFromName(name) {
-    // If-statements kan også bruges i stedet for switch-case (e.g.: if (name === 'Rosenborg slot') return RosenborgImg;)
     switch (name) {
       case 'Svamp':
         return SvampImg;

@@ -2,16 +2,15 @@ import MapView, { Marker } from 'react-native-maps';
 import React from 'react';
 import { Image, View, Dimensions, StyleSheet } from "react-native"
 import BasisLocation from "./BasisLocationExample"
+import { markers } from "../constants/markers"
+
+import SvampImg from '../assets/svamp.png';
+import BroImg from '../assets/bro.png';
+import AgernImg from '../assets/agern.png';
+import HuleImg from '../assets/hule.png';
+import Trae1Img from '../assets/trae1.png';
 
 export default function MyMap () {
-  const markers = [
-    {"key": 1,
-      "title": "Marker 1",
-    "latlng": {"latitude": 55.684487351235,
-  "longitude": 13.535789184220123,},
-      "markerType": "default"
-    }
-  ]
   return (
     <View style={styles.container}>
       <BasisLocation render={({coords}) => {
@@ -23,10 +22,10 @@ export default function MyMap () {
           latitude: coords.latitude,
           longitude: coords.longitude,
         },
-          "markerType": "custom"
+          "markerType": "default"
         }
         markers.push(myMarker)
-        return <MyMapView markers={markers}/>
+        return <MyMapView markers={markers} coords={coords}/>
       }}
       />
     </View>
@@ -34,21 +33,55 @@ export default function MyMap () {
 }
 
 function MyCustomMarkerView (props) {
+  const { marker } = props
+  function getImgFromName(name) {
+    switch (name) {
+      case 'svamp':
+        return SvampImg;
+      case 'agern':
+        return AgernImg;
+      case 'hule':
+        return HuleImg;
+      case 'trae1':
+        return Trae1Img;
+      case 'bro':
+        return BroImg;
+    }
+  }
   return (
     <View>
-        <Image
-          // style={styles.stretch}
-          source={require('../assets/images/acorn.png')}
+      <Image
+        style={{width:50, height:50}}
+        source={getImgFromName(marker.markerType)}
         />
-      </View>
-
+    </View>
   )
 }
 
 function MyMapView (props) {
-  const { markers } = props
+  const { coords, markers } = props
+  function getInitialRegion (coords) {
+    console.log("coords: ", coords)
+    const region = {
+      latitude: coords.latitude,
+      longitude: coords.longitude,
+      latitudeDelta: 0.013062526519824758,
+      longitudeDelta: 0.014861030405512565
+    }
+    return region;
+  }
+  const [ region, setRegion ] = React.useState(getInitialRegion(coords))
+
+  function onRegionChange(region) {
+    // console.log("region in onRegionChange: ", region)
+  }
+
   return (
-    <MapView style={styles.mapStyle}>
+    <MapView 
+      region={region}
+      onRegionChange={onRegionChange}
+      style={styles.mapStyle}
+    >
       {markers.map(m => {
         if (m.markerType === "default") {
         return (
@@ -62,7 +95,7 @@ function MyMapView (props) {
         } else {
           return (
             <Marker coordinate={m.latlng} key={m.key}>
-              <MyCustomMarkerView/>
+              <MyCustomMarkerView marker={m}/>
             </Marker>
           )
         }

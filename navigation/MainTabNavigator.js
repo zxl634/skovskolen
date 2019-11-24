@@ -92,8 +92,8 @@ CameraStack.navigationOptions = {
 CameraStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
   SearchStack,
+  HomeStack,
   DiplomasStack,
   CameraStack,
 }, {
