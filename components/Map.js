@@ -3,6 +3,7 @@ import React from 'react';
 import { Image, View, Dimensions, StyleSheet } from "react-native"
 import BasisLocation from "./BasisLocationExample"
 import { markers } from "../constants/markers"
+import { getDistance, findNearest } from "geolib"
 
 import SvampImg from '../assets/svamp.png';
 import BroImg from '../assets/bro.png';
@@ -11,20 +12,39 @@ import HuleImg from '../assets/hule.png';
 import Trae1Img from '../assets/trae1.png';
 
 export default function MyMap () {
+  function currentPositionMarker(coords) {
+    return {
+      "key": 0,
+      "title": "My current position",
+      "latlng":{
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+      },
+      "markerType": "default"
+    }
+  }
+  function checkWhetherCurrentPositionIsCloseToMarker(markers, coords) {
+    function collectCoordinatesOfMarkers (markers) {
+      const markerCoordinates = []
+      markers.forEach(m => {
+        markerCoordinates.push(m.latlng)
+      })
+      return markerCoordinates
+    }
+    const markerCoordinates = collectCoordinatesOfMarkers(markers)
+    const nearest = findNearest(coords, markerCoordinates);
+    const nearestMarker = markers.filter(m => m.latlng.latitude === nearest.latitude && m.latlng.longitude === nearest.longitude)[0]
+    const distanceToNearestMarker = getDistance(nearestMarker.latlng, coords)
+    alert("Du er " + distanceToNearestMarker + " meter fra nærmeste post, som er " + nearestMarker.title)
+    if (distanceToNearestMarker < 100) {
+      alert("Velkommen til " + nearestMarker.title)
+    }
+  }
   return (
     <View style={styles.container}>
       <BasisLocation render={({coords}) => {
-        console.log("coords: ", coords)
-        const myMarker = {
-          "key": 0,
-          "title": "My current position",
-          "latlng":{
-          latitude: coords.latitude,
-          longitude: coords.longitude,
-        },
-          "markerType": "default"
-        }
-        markers.push(myMarker)
+        checkWhetherCurrentPositionIsCloseToMarker(markers, coords)
+        markers.push(currentPositionMarker(coords))
         return <MyMapView markers={markers} coords={coords}/>
       }}
       />
@@ -61,7 +81,7 @@ function MyCustomMarkerView (props) {
 function MyMapView (props) {
   const { coords, markers } = props
   function getInitialRegion (coords) {
-    console.log("coords: ", coords)
+    // console.log("coords: ", coords)
     const region = {
       latitude: coords.latitude,
       longitude: coords.longitude,
@@ -77,7 +97,7 @@ function MyMapView (props) {
   }
 
   return (
-    <MapView 
+    <MapView
       region={region}
       onRegionChange={onRegionChange}
       style={styles.mapStyle}

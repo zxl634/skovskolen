@@ -21,6 +21,7 @@
     "expo-camera": "~7.0.0",
     "expo-constants": "^7.0.0",
     "expo-font": "^7.0.0",
+    "expo-task-manager": "~7.0.0",
     "expo-web-browser": "^7.0.0",
     "firebase": "^7.5.0",
     "geolib": "^3.1.0",
@@ -31,8 +32,7 @@
     "react-native-gesture-handler": "~1.3.0",
     "react-native-maps": "~0.25.0",
     "react-native-web": "^0.11.7",
-    "react-navigation": "^3.12.0",
-    "expo-task-manager": "~7.0.0"
+    "react-navigation": "^3.12.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^7.0.0",

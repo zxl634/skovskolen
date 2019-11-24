@@ -19,6 +19,9 @@ export default class BasisLocation extends Component {
     } else {
       this._getLocationAsync();
     }
+    Location.watchPositionAsync({}, location => {
+      // console.log("location update: ", location.coords)
+    })
   }
 
   _getLocationAsync = async () => {
