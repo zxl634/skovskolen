@@ -12,6 +12,8 @@ import HuleImg from '../assets/hule.png';
 import Trae1Img from '../assets/trae1.png';
 
 export default function MyMap () {
+  const [ zone, setZone ] = React.useState()
+  const [ previousZone, setPreviousZone ] = React.useState()
   function currentPositionMarker(coords) {
     return {
       "key": 0,
@@ -41,6 +43,18 @@ export default function MyMap () {
       </View>
     )
   }
+  function showInfoOnZone(zone) {
+    if (zone) {
+      if (previousZone && previousZone.title !== zone.title) {
+        alert("Velkommen!")
+      }
+      setPreviousZone(zone)
+      return <Text>{"Du er " + zone.title}</Text>
+
+    } else {
+      return <Text>{"Du er ikke i en zone"}</Text>
+    }
+  }
   return (
     <View style={styles.container}>
       <BasisLocation render={({coords}) => {
@@ -49,8 +63,11 @@ export default function MyMap () {
             <MyMapView
               markers={markers.concat([currentPositionMarker(coords)])}
               coords={coords}
+              zone={zone}
+              setZone={setZone}
             />
             {findNearestMarker(markers, coords)}
+            {showInfoOnZone(zone)}
           </>
         )
       }}
@@ -86,7 +103,7 @@ function MyCustomMarkerView (props) {
 }
 
 function MyMapView (props) {
-  const { coords, markers } = props
+  const { zone, setZone, coords, markers } = props
   function getInitialRegion (coords) {
     // console.log("coords: ", coords)
     const region = {
@@ -104,12 +121,15 @@ function MyMapView (props) {
     // setRegion(region)
   }
 
-  const defaultAfstandTilPost = 100
+  const defaultAfstandTilPost = 95
 
   function checkWhetherCurrentPositionIsCloseToMarker(marker, coords) {
     const distanceToMarker = getDistance(marker.latlng, coords)
     if (distanceToMarker < defaultAfstandTilPost) {
-      alert("Velkommen til " + marker.title)
+      // alert("Velkommen til " + marker.title)
+      setZone(marker)
+    } else if (zone && zone.title === marker.title) {
+      setZone(null)
     }
   }
 
@@ -127,7 +147,6 @@ function MyMapView (props) {
             coordinate={m.latlng}
             title={m.title}
             key={m.key}
-            // description={marker.description}
           />
         )
         } else {
