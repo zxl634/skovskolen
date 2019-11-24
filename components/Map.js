@@ -1,6 +1,6 @@
 import MapView, { Marker } from 'react-native-maps';
 import React from 'react';
-import { Image, View, Dimensions, StyleSheet } from "react-native"
+import { Text, Image, View, Dimensions, StyleSheet } from "react-native"
 import { _getLocationAsync, BasisLocation } from "./BasisLocationExample"
 import { markers } from "../constants/markers"
 import { getDistance, findNearest } from "geolib"
@@ -12,6 +12,8 @@ import HuleImg from '../assets/hule.png';
 import Trae1Img from '../assets/trae1.png';
 
 export default function MyMap () {
+  const [ nearestMarker, setNearestMarker ] = React.useState()
+  const [ distanceToNearestMarker, setDistanceToNearestMarker ] = React.useState()
   function currentPositionMarker(coords) {
     return {
       "key": 0,
@@ -34,8 +36,9 @@ export default function MyMap () {
     const markerCoordinates = collectCoordinatesOfMarkers(markers)
     const nearest = findNearest(coords, markerCoordinates);
     const nearestMarker = markers.filter(m => m.latlng.latitude === nearest.latitude && m.latlng.longitude === nearest.longitude)[0]
+    setNearestMarker(nearestMarker)
     const distanceToNearestMarker = getDistance(nearestMarker.latlng, coords)
-    alert("Du er " + distanceToNearestMarker + " meter fra nærmeste post, som er " + nearestMarker.title)
+    setDistanceToNearestMarker(distanceToNearestMarker)
   }
   React.useEffect(() => {
     async function getLocationOnce () {
@@ -55,6 +58,11 @@ export default function MyMap () {
         )
       }}
       />
+      { distanceToNearestMarker && nearestMarker ? (
+        <View>
+          <Text>{"Du er " + distanceToNearestMarker + " meter fra nærmeste post, som er " + nearestMarker.title}</Text>
+        </View>
+      ) : null }
     </View>
   )
 }
@@ -160,7 +168,6 @@ const styles = StyleSheet.create({
   },
   mapStyle: {
     width: Dimensions.get('window').width,
-    height: "100%",
-    // height: Dimensions.get('window').height - 60,
+    height: "95%",
   },
 });
