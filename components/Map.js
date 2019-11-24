@@ -1,7 +1,7 @@
 import MapView, { Marker } from 'react-native-maps';
 import React from 'react';
 import { Image, View, Dimensions, StyleSheet } from "react-native"
-import BasisLocation from "./BasisLocationExample"
+import { _getLocationAsync, BasisLocation } from "./BasisLocationExample"
 import { markers } from "../constants/markers"
 import { getDistance, findNearest } from "geolib"
 
@@ -23,7 +23,7 @@ export default function MyMap () {
       "markerType": "default"
     }
   }
-  function checkWhetherCurrentPositionIsCloseToMarker(markers, coords) {
+  function findNearestMarker (markers, coords) {
     function collectCoordinatesOfMarkers (markers) {
       const markerCoordinates = []
       markers.forEach(m => {
@@ -36,17 +36,20 @@ export default function MyMap () {
     const nearestMarker = markers.filter(m => m.latlng.latitude === nearest.latitude && m.latlng.longitude === nearest.longitude)[0]
     const distanceToNearestMarker = getDistance(nearestMarker.latlng, coords)
     alert("Du er " + distanceToNearestMarker + " meter fra nærmeste post, som er " + nearestMarker.title)
-    if (distanceToNearestMarker < 100) {
-      alert("Velkommen til " + nearestMarker.title)
-    }
   }
+  React.useEffect(() => {
+    async function getLocationOnce () {
+      let location = await _getLocationAsync()
+      findNearestMarker(markers, location.coords)
+    }
+    getLocationOnce()
+  })
   return (
     <View style={styles.container}>
       <BasisLocation render={({coords}) => {
-        checkWhetherCurrentPositionIsCloseToMarker(markers, coords)
         return (
-          <MyMapView 
-            markers={markers.concat([currentPositionMarker(coords)])} 
+          <MyMapView
+            markers={markers.concat([currentPositionMarker(coords)])}
             coords={coords}
           />
         )
@@ -95,9 +98,23 @@ function MyMapView (props) {
     return region;
   }
   const [ region, setRegion ] = React.useState(getInitialRegion(coords))
+  const [ zone, setZone ] = React.useState()
 
   function onRegionChange(region) {
     // console.log("region in onRegionChange: ", region)
+  }
+
+  const defaultAfstandTilPost = 100
+
+  function checkWhetherCurrentPositionIsCloseToMarker(marker, coords) {
+    const distanceToMarker = getDistance(marker.latlng, coords)
+    if (distanceToMarker < defaultAfstandTilPost && !zone) {
+      alert("Velkommen til " + marker.title)
+      setZone(marker)
+    } else if (zone && zone.title === marker.title && distanceToMarker >= defaultAfstandTilPost) {
+      setZone()
+      alert("Du har nu forladt " + marker.title)
+    }
   }
 
   return (
@@ -117,6 +134,7 @@ function MyMapView (props) {
           />
         )
         } else {
+          checkWhetherCurrentPositionIsCloseToMarker(m, coords)
           return (
             <Marker coordinate={m.latlng} key={m.key}>
               <MyCustomMarkerView marker={m}/>

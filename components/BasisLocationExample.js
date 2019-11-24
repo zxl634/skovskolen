@@ -5,7 +5,19 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import { taskname } from "./TaskManager"
 
-export default class BasisLocation extends Component {
+export async function _getLocationAsync () {
+  let { status } = await Permissions.askAsync(Permissions.LOCATION);
+  if (status !== 'granted') {
+    console.log("status: ", status)
+    this.setState({
+      errorMessage: 'Permission to access location was denied',
+    });
+  }
+
+  let location = await Location.getCurrentPositionAsync({});
+  return location
+};
+export class BasisLocation extends Component {
   state = {
     location: null,
     errorMessage: null,
