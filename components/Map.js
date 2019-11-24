@@ -98,23 +98,18 @@ function MyMapView (props) {
     return region;
   }
   const [ region, setRegion ] = React.useState(getInitialRegion(coords))
-  const [ zone, setZone ] = React.useState()
 
   function onRegionChange(region) {
     // console.log("region in onRegionChange: ", region)
     // setRegion(region)
   }
 
-  const defaultAfstandTilPost = 50
+  const defaultAfstandTilPost = 100
 
   function checkWhetherCurrentPositionIsCloseToMarker(marker, coords) {
     const distanceToMarker = getDistance(marker.latlng, coords)
-    if (distanceToMarker < defaultAfstandTilPost && !zone) {
+    if (distanceToMarker < defaultAfstandTilPost) {
       alert("Velkommen til " + marker.title)
-      setZone(marker)
-    } else if (zone && zone.title === marker.title && distanceToMarker >= defaultAfstandTilPost) {
-      setZone()
-      alert("Du har nu forladt " + marker.title)
     }
   }
 
@@ -125,6 +120,7 @@ function MyMapView (props) {
       style={styles.mapStyle}
     >
       {markers.map(m => {
+        if (m.key !== 0) checkWhetherCurrentPositionIsCloseToMarker(m, coords)
         if (m.markerType === "default") {
         return (
           <Marker
@@ -135,7 +131,6 @@ function MyMapView (props) {
           />
         )
         } else {
-          checkWhetherCurrentPositionIsCloseToMarker(m, coords)
           return (
             <Marker coordinate={m.latlng} key={m.key}>
               <MyCustomMarkerView marker={m}/>
