@@ -38,5 +38,21 @@ export const markers = [
       "longitude": 12.4593
     },
     "markerType": "agern"
+  },
+  {"key": 6,
+    "title": "Falkonér Allé",
+    "latlng": {
+      "latitude": 55.684259,
+      "longitude": 12.537142
+    },
+    "markerType": "default"
+  },
+  {"key": 7,
+    "title": "Aksel Møllers Have",
+    "latlng": {
+      "latitude": 55.685378,
+      "longitude": 12.533140
+    },
+    "markerType": "default"
   }
 ]

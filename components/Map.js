@@ -44,8 +44,12 @@ export default function MyMap () {
     <View style={styles.container}>
       <BasisLocation render={({coords}) => {
         checkWhetherCurrentPositionIsCloseToMarker(markers, coords)
-        markers.push(currentPositionMarker(coords))
-        return <MyMapView markers={markers} coords={coords}/>
+        return (
+          <MyMapView 
+            markers={markers.concat([currentPositionMarker(coords)])} 
+            coords={coords}
+          />
+        )
       }}
       />
     </View>
