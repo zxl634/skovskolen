@@ -12,8 +12,6 @@ import HuleImg from '../assets/hule.png';
 import Trae1Img from '../assets/trae1.png';
 
 export default function MyMap () {
-  const [ nearestMarker, setNearestMarker ] = React.useState()
-  const [ distanceToNearestMarker, setDistanceToNearestMarker ] = React.useState()
   function currentPositionMarker(coords) {
     return {
       "key": 0,
@@ -36,33 +34,27 @@ export default function MyMap () {
     const markerCoordinates = collectCoordinatesOfMarkers(markers)
     const nearest = findNearest(coords, markerCoordinates);
     const nearestMarker = markers.filter(m => m.latlng.latitude === nearest.latitude && m.latlng.longitude === nearest.longitude)[0]
-    setNearestMarker(nearestMarker)
     const distanceToNearestMarker = getDistance(nearestMarker.latlng, coords)
-    setDistanceToNearestMarker(distanceToNearestMarker)
+    return (
+      <View>
+        <Text>{"Du er " + distanceToNearestMarker + " meter fra nærmeste post, som er " + nearestMarker.title}</Text>
+      </View>
+    )
   }
-  React.useEffect(() => {
-    async function getLocationOnce () {
-      let location = await _getLocationAsync()
-      findNearestMarker(markers, location.coords)
-    }
-    getLocationOnce()
-  })
   return (
     <View style={styles.container}>
       <BasisLocation render={({coords}) => {
         return (
-          <MyMapView
-            markers={markers.concat([currentPositionMarker(coords)])}
-            coords={coords}
-          />
+          <>
+            <MyMapView
+              markers={markers.concat([currentPositionMarker(coords)])}
+              coords={coords}
+            />
+            {findNearestMarker(markers, coords)}
+          </>
         )
       }}
       />
-      { distanceToNearestMarker && nearestMarker ? (
-        <View>
-          <Text>{"Du er " + distanceToNearestMarker + " meter fra nærmeste post, som er " + nearestMarker.title}</Text>
-        </View>
-      ) : null }
     </View>
   )
 }
@@ -100,8 +92,8 @@ function MyMapView (props) {
     const region = {
       latitude: coords.latitude,
       longitude: coords.longitude,
-      latitudeDelta: 0.013062526519824758,
-      longitudeDelta: 0.014861030405512565
+      latitudeDelta: 0.0033837912792193947,
+      longitudeDelta: 0.003994445272923031
     }
     return region;
   }
@@ -110,9 +102,10 @@ function MyMapView (props) {
 
   function onRegionChange(region) {
     // console.log("region in onRegionChange: ", region)
+    // setRegion(region)
   }
 
-  const defaultAfstandTilPost = 100
+  const defaultAfstandTilPost = 50
 
   function checkWhetherCurrentPositionIsCloseToMarker(marker, coords) {
     const distanceToMarker = getDistance(marker.latlng, coords)
