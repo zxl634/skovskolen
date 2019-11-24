@@ -45,13 +45,13 @@ export default function MyMap () {
   }
   function showInfoOnZone(zone) {
     if (zone) {
-      if (previousZone && previousZone.title !== zone.title) {
-        alert("Velkommen!")
+      if (!previousZone) {
+        alert("Velkommen til " + zone.title)
       }
       setPreviousZone(zone)
-      return <Text>{"Du er " + zone.title}</Text>
-
+      return <Text>{"Du er zonen: " + zone.title}</Text>
     } else {
+      setPreviousZone(null)
       return <Text>{"Du er ikke i en zone"}</Text>
     }
   }
