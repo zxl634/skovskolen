@@ -24,7 +24,13 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "dk.diri.skovskolen"
+      "bundleIdentifier": "dk.diri.skovskolen",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Vi skal bruge din lokation for kunne lære dig om de steder, du besøger.",
+        "NSPhotoLibraryAddUsageDescription": "Vi skal bruge adgang for at kunne gemme billeder, du tager.",
+        "NSPhotoLibraryUsageDescription": "Vi skal bruge adgang for at kunne vise dig de billeder, du tager.",
+        "NSCameraUsageDescription": "Vi skal bruge adgang for at kunne give dig mulighed for at tage billeder."
+      }
     },
     "android": {
       "package": "dk.diri.skovskolen"
