@@ -54,5 +54,14 @@ export const markers = [
       "longitude": 12.533140
     },
     "markerType": "default"
+  },
+  {"key": 8,
+    "title": "Vartov",
+    "latlng": {
+      "latitude": 55.675767,
+      "longitude": 12.571780
+    },
+    "markerType": "default",
+    "onZoneEnter": function () { alert("Du er på Vartov") },
   }
 ]

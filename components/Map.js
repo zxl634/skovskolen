@@ -46,7 +46,11 @@ export default function MyMap () {
   function showInfoOnZone(zone) {
     if (zone) {
       if (!previousZone) {
-        alert("Velkommen til " + zone.title)
+        if (zone.onZoneEnter) {
+          zone.onZoneEnter()
+        } else {
+          alert("Velkommen til " + zone.title)
+        }
       }
       setPreviousZone(zone)
       return <Text>{"Du er zonen: " + zone.title}</Text>
