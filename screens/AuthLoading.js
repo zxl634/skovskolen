@@ -13,10 +13,8 @@ export default class AuthLoadingScreen extends React.Component {
     const { navigation } = this.props
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        console.log("fandt en bruger")
         navigation.navigate("Main")
       } else {
-        console.log("fandt ingen bruger")
         navigation.navigate("Start")
       }
     });
