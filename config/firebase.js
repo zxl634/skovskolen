@@ -1,9 +1,10 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import { apiKey } from "../api-keys/firebase"
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-  apiKey: "AIzaSyBVGHFfaEXYGCrQRQRFn1s3d2yDdLDV0Uo",
+  apiKey: apiKey, 
   authDomain: "skovskolen-ca7e7.firebaseapp.com",
   databaseURL: "https://skovskolen-ca7e7.firebaseio.com",
   projectId: "skovskolen-ca7e7",
