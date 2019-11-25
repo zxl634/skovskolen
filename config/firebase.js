@@ -2,6 +2,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 
 // Your web app's Firebase configuration
+throw "Need apikey"
 var firebaseConfig = {
   apiKey: "AIzaSyBVGHFfaEXYGCrQRQRFn1s3d2yDdLDV0Uo",
   authDomain: "skovskolen-ca7e7.firebaseapp.com",
