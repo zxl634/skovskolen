@@ -1,8 +1,6 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import * as firebase from 'firebase/app';
 import { NavigationActions } from 'react-navigation';
-import 'firebase/auth';
 import {
   Image,
   ActivityIndicator,
@@ -17,31 +15,10 @@ import {
 import MyButton from "../components/MyButton"
 
 export default function HomeScreen(props) {
-  const [ fetchingUserStatus, setFetchingUserStatus ] = React.useState(true)
-  React.useEffect(() => {
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        props.navigation.navigate("Main")
-      } else {
-        setFetchingUserStatus(false)
-      }
-    });
-  })
   function onPressStart () {
-    setFetchingUserStatus(true)
-    firebase.auth().signInAnonymously().then(() => {
-      props.navigation.navigate("Main")
-    }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      alert(errorMessage)
-    });
+    props.navigation.navigate("Info")
   }
 
-  if (fetchingUserStatus) {
-    return <ActivityIndicator/>
-  } else {
     return (
       <ImageBackground source={require("../assets/backgrounds/startScreen.png")} style={{width: '100%', height: '100%'}}>
           <View style={styles.startContainer}>
@@ -53,7 +30,6 @@ export default function HomeScreen(props) {
           </View>
       </ImageBackground>
     );
-  }
   
 }
 
