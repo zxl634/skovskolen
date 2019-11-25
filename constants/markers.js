@@ -1,3 +1,6 @@
+import PostModal from "../components/PostModal"
+import React from "react"
+
 export const markers = [
   {"key": 1,
     "title": "Bro",
@@ -62,6 +65,7 @@ export const markers = [
       "longitude": 12.571780
     },
     "markerType": "default",
-    "onZoneEnter": function () { alert("Du er på Vartov") },
+    // "onZoneEnter": function () { alert("Du er på Vartov") },
+    "onZoneEnter": function () { return <PostModal/> },
   }
 ]

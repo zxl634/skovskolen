@@ -47,7 +47,7 @@ export default function MyMap () {
     if (zone) {
       if (!previousZone) {
         if (zone.onZoneEnter) {
-          zone.onZoneEnter()
+          return zone.onZoneEnter()
         } else {
           alert("Velkommen til " + zone.title)
         }
