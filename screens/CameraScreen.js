@@ -19,7 +19,6 @@ export default class CameraScreen extends React.Component {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
     await MediaLibrary.requestPermissionsAsync()
-    // Populate gallery
     await this.getExistingPhotos()
   }
 
