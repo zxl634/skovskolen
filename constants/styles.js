@@ -27,6 +27,7 @@ export default StyleSheet.create({
         width: 60,
         height: 60,
         borderWidth: 2,
+        bottom: 110,
         borderRadius: 60,
         borderColor: "#FFFFFF",
     },
@@ -43,7 +44,7 @@ export default StyleSheet.create({
         borderColor: "transparent",
     },
     galleryContainer: { 
-        bottom: 100 
+        // bottom: 100 
     },
     galleryImageContainer: { 
         width: 75, 
