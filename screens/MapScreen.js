@@ -1,54 +1,23 @@
-import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import GeoFenceComponent from '../components/GeoFenceComponent';
+import React from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
+import { ExpoLinksView } from '@expo/samples';
+import MyMap from "../components/Map"
 
-export default class MapScreen extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        Zone: false,
-        ZoneText: 'non-sense'
-      };
-    }
+export default function SearchScreen() {
+  return (
+    <MyMap/>
+  );
+}
 
-   inTheZone = (z,p) => {
-      this.setState({Zone : z , ZoneText:p.whatis});
-      console.log('The point of interest in the zone:', p);  // Keeping track in the console/terminal
-   };
+SearchScreen.navigationOptions = {
+  // tabBarVisible: false,
+  header: null,
+};
 
-  onPress = () => {
-    this.props.navigation.navigate('Zone',{what:ZoneText})
-  }
-  
-    render() {
-      const { Zone, ZoneText } = this.state
-      return (
-          <View style={styles.container}>
-            <GeoFenceComponent showCoordinates={false} inZone={this.inTheZone}/>
-            {(Zone) ? (
-              [<Text key={0} style={styles.paragraph}>{'Du er i Zonen ved ' + ZoneText}</Text>, 
-               <Button 
-                  key={1}
-                  title={'Fortæl mig lidt mere om ' + ZoneText}
-                  onPress={onPress}  
-                /> 
-              ] 
-            ) : null }
-        </View>
-      );
-    }
-  }
-
-//Styling starter her
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#ecf0f1',
-    },
-    paragraph: {
-      margin:10,
-      fontSize: 18,
-      textAlign: 'center'
-    } })
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 15,
+    backgroundColor: '#fff',
+  },
+});

@@ -12,11 +12,26 @@ import {
 } from 'react-native';
 import { MonoText } from '../components/StyledText';
 import MyMap from "../components/Map"
-import InfoScreen from "./InfoScreen"
+import MyButton from "../components/MyButton"
+import 'firebase/auth';
+import * as firebase from 'firebase/app';
 
 export default function HomeScreen() {
+  function logout () {
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      console.log("Signed out")
+    }).catch(function(error) {
+      // An error happened.
+      alert(error.message)
+    });
+
+  }
   return (
-    <InfoScreen/>
+      <MyButton
+        onPressButton={logout}
+        buttonText={"Log ud"}
+      />
   );
 }
 

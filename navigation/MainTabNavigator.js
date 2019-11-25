@@ -3,8 +3,8 @@ import { View, Image, Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon, { MyIcon } from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import SearchScreen from '../screens/SearchScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import MapScreen from '../screens/MapScreen';
 import DiplomasScreen from '../screens/DiplomasScreen';
 import CameraScreen from '../screens/CameraScreen';
 import Colors from '../constants/Colors';
@@ -14,15 +14,15 @@ const config = Platform.select({
   default: {},
 });
 
-const HomeStack = createStackNavigator(
+const ProfileStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Profile: ProfileScreen,
   },
   config
 );
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Hjem',
+ProfileStack.navigationOptions = {
+  tabBarLabel: 'Profil',
   tabBarIcon: ({ focused }) => (
     <MyIcon
       focused={focused}
@@ -32,16 +32,16 @@ HomeStack.navigationOptions = {
   ),
 };
 
-HomeStack.path = '';
+ProfileStack.path = '';
 
-const SearchStack = createStackNavigator(
+const MapStack = createStackNavigator(
   {
-    Search: SearchScreen,
+    Map: MapScreen,
   },
   config
 );
 
-SearchStack.navigationOptions = {
+MapStack.navigationOptions = {
   tabBarLabel: 'Kort',
   tabBarIcon: ({ focused }) => (
     <MyIcon
@@ -52,7 +52,7 @@ SearchStack.navigationOptions = {
   ),
 };
 
-SearchStack.path = '';
+MapStack.path = '';
 
 const DiplomasStack = createStackNavigator(
   {
@@ -92,10 +92,10 @@ CameraStack.navigationOptions = {
 CameraStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  SearchStack,
-  HomeStack,
-  DiplomasStack,
+  MapStack,
   CameraStack,
+  DiplomasStack,
+  ProfileStack,
 }, {
   tabBarOptions: {
     activeTintColor: Colors.tintColor,
